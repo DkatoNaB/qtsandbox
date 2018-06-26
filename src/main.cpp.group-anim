@@ -1,0 +1,41 @@
+#include <QApplication>
+#include <QPushButton>
+#include <QPropertyAnimation>
+#include <QPushButton>
+#include <QRect>
+#include <QParallelAnimationGroup>
+
+int main(int argc, char **argv)
+{
+  QApplication app(argc, argv);
+  QPushButton *bonnie = new QPushButton("Bonnie");
+  bonnie->show();
+  
+  QPushButton *clyde = new QPushButton("Clyde");
+  clyde->show();
+  
+  QPropertyAnimation *anim1 = new QPropertyAnimation(bonnie, "geometry");
+  // Set up anim1
+  anim1->setDuration(3000);
+  anim1->setStartValue(QRect(0, 0, 100, 30));
+  anim1->setEndValue(QRect(250, 250, 100, 30));
+  anim1->setEasingCurve(QEasingCurve::OutBounce); 
+  QPropertyAnimation *anim2 = new QPropertyAnimation(clyde, "geometry");
+  // Set up anim2
+  anim2->setDuration(6000);
+  anim2->setStartValue(QRect(0, 0, 100, 30));
+  anim2->setEndValue(QRect(250, 250, 100, 30));
+  anim2->setEasingCurve(QEasingCurve::OutBounce);
+
+  QParallelAnimationGroup *group = new QParallelAnimationGroup;
+  group->addAnimation(anim1);
+  group->addAnimation(anim2);
+  
+  group->start();
+//  delete bonnie;
+//  delete clyde;
+//  delete anim1;
+//  delete anim2;
+//  delete group;
+  return app.exec();
+}
