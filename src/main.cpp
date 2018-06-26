@@ -1,46 +1,23 @@
 #include <QApplication>
-#include <QPushButton>
-#include <QPropertyAnimation>
-#include <QPushButton>
-#include <QRect>
-//https://doc.qt.io/qt-5/animation-overview.html
+#include "mainwindow.h"
 
-// ye fk globasls but FFS it's a sadbox
-constexpr int ANIM_DUR_TIME = 10000;
-
-// no ownership passed in either case
-
-//  This code will move button from the top left corner of the screen to the position 
-//  (250, 250) in 10 seconds (10000 milliseconds). based on ANIM_DUR_TIME
-void clown_fiesta1(QPropertyAnimation *animation)
-{
-  animation->setStartValue(QRect(0, 0, 100, 30));
-  animation->setEndValue(QRect(250, 250, 100, 30));
-}
-
-//In this example, the animation will take the button to (250, 250) in 8 seconds, and 
-//then move it back to its original position in the remaining 2 seconds. The movement 
-//will be linearly interpolated between these points.
-void clown_fiesta2(QPropertyAnimation *animation)
-{
-  animation->setKeyValueAt(0, QRect(0, 0, 100, 30));
-  animation->setKeyValueAt(0.8, QRect(250, 250, 100, 30));
-  animation->setKeyValueAt(1, QRect(0, 0, 100, 30));
-}
-
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-//    QLabel hello("Hello world!");
-//    hello.show();
 
-    QPushButton button("Sample butt");
-    button.show();
-    QPropertyAnimation animation(&button, "geometry");
-    animation.setDuration(ANIM_DUR_TIME);
-    clown_fiesta2(&animation);
-    animation.start();
-    
-    
+    // Retina display support for Mac OS, iOS and X11:
+    // http://blog.qt.io/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
+    //
+    // AA_UseHighDpiPixmaps attribute is off by default in Qt 5.1 but will most
+    // likely be on by default in a future release of Qt.
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+//    QIcon appIcon;
+//    appIcon.addFile(":/Icons/AppIcon32");
+//    appIcon.addFile(":/Icons/AppIcon128");
+//    app.setWindowIcon(appIcon);
+
+    MainWindow mainWindow;
+    mainWindow.show();
     return app.exec();
 }

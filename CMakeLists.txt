@@ -34,6 +34,12 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # The following folder will be included
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
-add_executable(qtsandbox ${PROJECT_SOURCE_DIR}/src/main.cpp)
-target_link_libraries (qtsandbox Qt5::Widgets)
+set(SOURCE
+  ${SOURCE}
+  ${PROJECT_SOURCE_DIR}/src/main.cpp
+  ${PROJECT_SOURCE_DIR}/src/mainwindow.cpp
+  )
+
+add_executable(${PROJECT_NAME} ${SOURCE})
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
 
