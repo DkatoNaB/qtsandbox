@@ -1,25 +1,23 @@
 #include <QApplication>
-#include <QPushButton>
-#include <QPropertyAnimation>
-#include <QPushButton>
-#include <QRect>
-#include <QParallelAnimationGroup>
+#include <QtWidgets>
+#include "mainwindow.h"
 
-int main(int argc, char **argv)
+void sample(QWidget* widget)
 {
-  QApplication app(argc, argv);
-  QPushButton *bonnie = new QPushButton("Bonnie");
+  QPushButton *bonnie = new QPushButton(widget);
+  bonnie->setText("Bonnie");
   bonnie->show();
-  
-  QPushButton *clyde = new QPushButton("Clyde");
+
+  QPushButton *clyde = new QPushButton(widget);
+  clyde->setText("Clyde");
   clyde->show();
-  
+
   QPropertyAnimation *anim1 = new QPropertyAnimation(bonnie, "geometry");
   // Set up anim1
   anim1->setDuration(3000);
   anim1->setStartValue(QRect(0, 0, 100, 30));
   anim1->setEndValue(QRect(250, 250, 100, 30));
-  anim1->setEasingCurve(QEasingCurve::OutBounce); 
+  anim1->setEasingCurve(QEasingCurve::OutBounce);
   QPropertyAnimation *anim2 = new QPropertyAnimation(clyde, "geometry");
   // Set up anim2
   anim2->setDuration(6000);
@@ -30,12 +28,35 @@ int main(int argc, char **argv)
   QParallelAnimationGroup *group = new QParallelAnimationGroup;
   group->addAnimation(anim1);
   group->addAnimation(anim2);
-  
+
   group->start();
-//  delete bonnie;
-//  delete clyde;
-//  delete anim1;
-//  delete anim2;
-//  delete group;
-  return app.exec();
+
+}
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    // Retina display support for Mac OS, iOS and X11:
+    // http://blog.qt.io/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
+    //
+    // AA_UseHighDpiPixmaps attribute is off by default in Qt 5.1 but will most
+    // likely be on by default in a future release of Qt.
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+//    QIcon appIcon;
+//    appIcon.addFile(":/Icons/AppIcon32");
+//    appIcon.addFile(":/Icons/AppIcon128");
+//    app.setWindowIcon(appIcon);
+
+    MainWindow main_window;
+    main_window.show();
+
+    QWidget *widget = new QWidget;
+    sample(widget);
+//    QPushButton *button = new QPushButton(widget);
+//    button->setText("LUL");
+    main_window.setCentralWidget(widget);
+
+    return app.exec();
 }
