@@ -1,10 +1,8 @@
 #include <QApplication>
-#include <QLabel>
+#include <QPushButton>
 #include <QPropertyAnimation>
 #include <QPushButton>
 #include <QRect>
-#include <QtWidgets>
-
 //https://doc.qt.io/qt-5/animation-overview.html
 
 // ye fk globasls but FFS it's a sadbox
@@ -38,7 +36,6 @@ int main(int argc, char **argv)
 
     QPushButton button("Sample butt");
     button.show();
-
     QPropertyAnimation animation(&button, "geometry");
     animation.setDuration(ANIM_DUR_TIME);
     clown_fiesta2(&animation);
